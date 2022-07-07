@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class PostController extends Controller
     public function create()
     {
         // dd('create');
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -64,7 +66,8 @@ class PostController extends Controller
         // dd('show');
         $post = Post::findOrFail($id);
         // dd($post);
-        return view('admin.posts.show', compact('post'));
+        $category = $post->category; 
+        return view('admin.posts.show', compact('post', 'category'));
 
     }
 
@@ -78,7 +81,8 @@ class PostController extends Controller
     {
         // dd('edit');
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -138,7 +142,8 @@ class PostController extends Controller
     private function getValidationRules() {
         return [
             'title' => 'required|max:255',
-            'content' => 'required|max:30000'
+            'content' => 'required|max:30000',
+            'category_id' => 'nullable|exists:categories,id'
         ];
     }
 }
