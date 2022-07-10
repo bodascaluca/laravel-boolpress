@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,7 +19,8 @@ class PostController extends Controller
     public function index()
     {
         // dd('index');
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::paginate(9);
         // dd($posts);
         return view('admin.posts.index', compact('posts'));
     }
@@ -32,7 +34,8 @@ class PostController extends Controller
     {
         // dd('create');
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags= Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -51,6 +54,10 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = $this->generatePostSlugFromTitle($post->title);
         $post->save();
+
+        if(isset($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
@@ -82,7 +89,8 @@ class PostController extends Controller
         // dd('edit');
         $post = Post::findOrFail($id);
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -103,6 +111,12 @@ class PostController extends Controller
         $post->slug = $this->generatePostSlugFromTitle($post->title);
         $post->save();
 
+        if(isset($data['tags'])){
+            $post->tags()->sync($data['tags']);
+        } else {
+            $post->tag()->sync([]);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
@@ -116,6 +130,7 @@ class PostController extends Controller
     {
             // dd('destroy');
             $post = Post::findOrFail($id);
+            $post->tags()->sync([]);
             $post->delete();
             // dd($comic);
             return redirect()->route('admin.posts.index');
@@ -143,7 +158,8 @@ class PostController extends Controller
         return [
             'title' => 'required|max:255',
             'content' => 'required|max:30000',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags'=> 'nullable|exists:tags,id'
         ];
     }
 }

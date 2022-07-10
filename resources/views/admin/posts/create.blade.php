@@ -28,6 +28,20 @@
                 <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
             @endforeach
         </select>
+        
+        <h4>Tags</h4>
+        @foreach ($tags as $tag)
+            <div class="form-check">
+                {{-- Se tag->id è presente nell'array old, allora inserisci checked --}}
+
+                <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" {{ in_array( $tag->id, old('tags', [])) ? 'checked' : '' }}>
+                <label class="form-check-label" for="tag-{{ $tag->id }}">
+                    {{ $tag->nome }}
+                </label>
+            </div>
+        @endforeach
+    </div>
+
 
         <div class="form-group">
             <label for="content">Content</label>
