@@ -14,7 +14,7 @@
               Titolo
               </h5>
             <p class="card-text">
-              {{ troncateText(post.content, 10) }}
+              {{ troncateText(post.content, 50) }}
             </p>
           </div>
           <!-- <ul class="list-group list-group-flush">
@@ -52,7 +52,7 @@ export default {
       });
     },
     troncateText(text, maxCharNumber){
-      if(text.lenght > maxCharNumber ){
+      if(text.length > maxCharNumber ){
         return text.substring(0, maxCharNumber) + '...';
       }
       return text;

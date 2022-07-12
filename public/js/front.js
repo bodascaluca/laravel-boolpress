@@ -1927,7 +1927,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     troncateText: function troncateText(text, maxCharNumber) {
-      if (text.lenght > maxCharNumber) {
+      if (text.length > maxCharNumber) {
         return text.substring(0, maxCharNumber) + '...';
       }
 
@@ -1989,7 +1989,7 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v("\n              " + _vm._s(post.title) + "\n              Titolo\n              ")]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\n              " + _vm._s(_vm.troncateText(post.content, 10)) + "\n            ")])])])]);
+    }, [_vm._v("\n              " + _vm._s(_vm.troncateText(post.content, 50)) + "\n            ")])])])]);
   }), 0)]);
 };
 
