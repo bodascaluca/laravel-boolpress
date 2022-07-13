@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="container text-center mt-4">
-      <Posts />
-    </div>
+    <Header />
+    <router-view></router-view>
+    <footer>Footer</footer>
   </div>
 </template>
 
 <script>
-import Posts from "../components/Posts.vue";
+import Header from "../components/Header.vue";
 export default {
   name: "App",
   components: {
-    Posts
-  },
+    Header
+  }
 };
 </script>
 
