@@ -18,8 +18,7 @@
             class="page-link"
             href="#"
             tabindex="-1"
-            >Previous</a
-          >
+            >Previous</a>
         </li>
         <!-- Pages numbers -->
         <li
