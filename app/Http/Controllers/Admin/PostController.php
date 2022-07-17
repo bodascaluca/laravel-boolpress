@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -46,19 +48,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //Visualizzazione dati
         $request->validate($this->getValidationRules());
 
         $data = $request->all();
         // dd($data);
+
+        // gestione di salvataggio dell'immagine
+        if (isset($data['image'])) {
+            $image_path = Storage::put('post_covers', $data['image']);
+            $data['cover'] = $image_path;
+        }
+
         $post = new Post();
         $post->fill($data);
         $post->slug = $this->generatePostSlugFromTitle($post->title);
         $post->save();
 
+        //colegamento con i vari tag
         if(isset($data['tags'])) {
             $post->tags()->sync($data['tags']);
         }
 
+        //
+
+        // Mail::to('superadmin@boopress.it')->send(new NewNotificationToAdmin());
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
@@ -107,9 +121,27 @@ class PostController extends Controller
         $data = $request->all();
         // dd($data);
         $post = Post::findOrFail($id);
-        $post->fill($data);
-        $post->slug = $this->generatePostSlugFromTitle($post->title);
-        $post->save();
+
+           // Se nel data c'è immagine
+           if (isset($data['image'])) {
+            //  Cancellare l'immagine precedente se c'è
+            if ($post->cover) {
+                Storage::delete($post->cover);
+            }
+            //  Salvare l'immagine nuova
+            $image_path = Storage::put('post_covers', $data['image']);
+            //  Salvare il path dell'immagine nel data
+            $data['cover'] = $image_path;
+        }
+
+        // Metodo fill + save
+        // $post->fill($data);
+        // $post->slug = Post::generatePostSlugFromTitle($post->title);
+        // $post->save();
+
+        // Metodo update
+        $data['slug'] = Post::generatePostSlugFromTitle($data['title']);
+        $post->update($data);
 
         if(isset($data['tags'])){
             $post->tags()->sync($data['tags']);
@@ -131,6 +163,12 @@ class PostController extends Controller
             // dd('destroy');
             $post = Post::findOrFail($id);
             $post->tags()->sync([]);
+
+            // Se c'è l'immagine cover, allora la cancelliamo
+            if($post->cover) {
+                Storage::delete($post->cover);
+            }
+
             $post->delete();
             // dd($comic);
             return redirect()->route('admin.posts.index');
@@ -159,7 +197,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:30000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags'=> 'nullable|exists:tags,id'
+            'tags'=> 'nullable|exists:tags,id',
+            'image' => 'image|max:512'
         ];
     }
 }

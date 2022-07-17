@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/posts', 'Api\PostController@index')->name('api.posts.index');
 Route::get('/posts/{slug}', 'Api\PostController@show')->name('api.posts.show');
+Route::get('/tags/{slug}', 'Api\TagController@show')->name('api.tags.show');
