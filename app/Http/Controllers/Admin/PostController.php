@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Mail\NewPostNotificationToAdmin;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -71,8 +72,9 @@ class PostController extends Controller
         }
 
         //
+         // Invio l'email di notifica all'amministratore
+         Mail::to('superadmin@boolpress.it')->send(new NewPostNotificationToAdmin($post));
 
-        // Mail::to('superadmin@boopress.it')->send(new NewNotificationToAdmin());
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
