@@ -1945,7 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     categoryName: function categoryName() {
-      return this.post.category ? this.post.category.nome : "nessuna";
+      return this.post.category ? this.post.category.name : "nessuna";
     }
   },
   methods: {
@@ -2623,7 +2623,7 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_vm.tag ? _c("section", [_c("h1", [_vm._v("Tag: " + _vm._s(_vm.tag.name))]), _vm._v(" "), _c("h3", [_vm._v("Post collegati:")]), _vm._v(" "), _c("div", {
+  }, [_vm.tag ? _c("section", [_c("h1", [_vm._v("Tag: " + _vm._s(_vm.tag.nome))]), _vm._v(" "), _c("h3", [_vm._v("Post collegati:")]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-3"
   }, _vm._l(_vm.tag.posts, function (post) {
     return _c("div", {

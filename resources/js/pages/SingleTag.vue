@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <section v-if="tag">
-      <h1>Tag: {{ tag.name }}</h1>
+      <h1>Tag: {{ tag.nome }}</h1>
       <h3>Post collegati:</h3>
       <div class="row row-cols-3">
         <div v-for="post in tag.posts" :key="post.id" class="col">

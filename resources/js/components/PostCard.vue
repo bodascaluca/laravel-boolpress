@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     categoryName() {
-      return this.post.category ? this.post.category.nome : "nessuna";
+      return this.post.category ? this.post.category.name : "nessuna";
     },
   },
   methods: {
