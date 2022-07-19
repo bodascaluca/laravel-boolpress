@@ -1945,7 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     categoryName: function categoryName() {
-      return this.post.category ? this.post.category.name : "nessuna";
+      return this.post.category ? this.post.category.nome : "nessuna";
     }
   },
   methods: {
@@ -2315,7 +2315,13 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "card mb-3"
-  }, [_c("div", {
+  }, [_vm.post.cover ? _c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.post.cover,
+      alt: "Card image cap"
+    }
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("p", [_vm._v("Category: " + _vm._s(_vm.categoryName))]), _vm._v(" "), _c("h5", {
     staticClass: "card-title"
@@ -2571,7 +2577,12 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_vm.post ? _c("section", [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", [_vm._v("Category: " + _vm._s(_vm.categoryName))]), _vm._v(" "), _c("div", {
+  }, [_vm.post ? _c("section", [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _vm.post.cover ? _c("div", [_c("img", {
+    attrs: {
+      src: _vm.post.cover,
+      alt: ""
+    }
+  })]) : _vm._e(), _vm._v(" "), _c("p", [_vm._v("Category: " + _vm._s(_vm.categoryName))]), _vm._v(" "), _c("div", {
     staticClass: "mb-4"
   }, _vm._l(_vm.post.tags, function (tag) {
     return _c("router-link", {
@@ -2585,7 +2596,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(tag.name))]);
+    }, [_vm._v(_vm._s(tag.nome))]);
   }), 1), _vm._v(" "), _c("p", [_vm._v("\n        " + _vm._s(_vm.post.content) + "\n      ")])]) : _c("section", [_c("h2", [_vm._v("Loading...")])])]);
 };
 
@@ -53984,7 +53995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_About_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/About.vue */ "./resources/js/pages/About.vue");
 /* harmony import */ var _pages_Blog_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Blog.vue */ "./resources/js/pages/Blog.vue");
 /* harmony import */ var _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/SinglePost.vue */ "./resources/js/pages/SinglePost.vue");
-/* harmony import */ var _pages_SingleTag_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/SingleTag.vue */ "./resources/js/pages/SingleTag.vue");
+/* harmony import */ var _pages_SingleTag_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/SingleTag.vue */ "./resources/js/pages/SingleTag.vue");
 /* harmony import */ var _pages_NotFound_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/NotFound.vue */ "./resources/js/pages/NotFound.vue");
 
 
@@ -54016,7 +54027,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: "/tags/:slug",
     name: "single-tag",
-    component: _pages_SingleTag_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _pages_SingleTag_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: "/*",
     name: "not-found",

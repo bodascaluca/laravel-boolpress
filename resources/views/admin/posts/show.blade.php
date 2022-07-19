@@ -14,7 +14,7 @@
     <p><strong>Tags: </strong>
 
         @forelse ($post->tags as $tag)
-            {{ $tag->name }}{{ $loop->last ? '' : ', ' }}
+            {{ $tag->nome }}{{ $loop->last ? '' : ', ' }}
         @empty
             nessuno
         @endforelse

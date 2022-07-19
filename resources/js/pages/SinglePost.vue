@@ -12,7 +12,7 @@
           v-for="tag in post.tags"
           :key="tag.id"
           class="badge rounded-pill bg-warning text-dark mr-3"
-          >{{ tag.name }}</router-link
+          >{{ tag.nome }}</router-link
         >
       </div>
       <p>
