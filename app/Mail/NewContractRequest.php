@@ -30,6 +30,6 @@ class NewContractRequest extends Mailable
     public function build()
     {
         $lead = $this->lead;
-        return $this->view('mails.new-contact-request', compact('lead'));
+        return $this->view('mails.new-contract-request', compact('lead'));
     }
 }

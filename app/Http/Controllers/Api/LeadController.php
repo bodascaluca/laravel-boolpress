@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 class LeadController extends Controller
 {
     public function store(Request $request) {
+
+        
         $data = $request->all();
         // Verifica dei dati
         $validator = Validator::make($data, [
@@ -19,7 +21,7 @@ class LeadController extends Controller
             'email' => 'required|email',
             'message' => 'required'
         ]);
-
+        
         if($validator->fails()) {
             return response()->json([
                 'success' => false,
